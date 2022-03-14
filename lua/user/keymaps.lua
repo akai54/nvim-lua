@@ -98,6 +98,12 @@ But if you the local file over the repo's one then press x then s. ]]
 keymap("n", "<Leader>ga", ":diffget //2<CR>", opts)
 keymap("n", "<Leader>g;", ":diffget //3<CR>", opts)
 
+-- Fine Command-Line
+keymap("n", ":", ":FineCmdline<CR>", opts)
+
+--Fine Search box
+keymap("n", "/", ":SearchBoxIncSearch<CR>", opts)
+
 -- Insert --
 -- Press jk to leave insert mode
 keymap("i", "jk", "<ESC>", opts)
