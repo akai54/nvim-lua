@@ -30,6 +30,10 @@ vim.cmd [[
   augroup end
 ]]
 
+  local LSP_errors = vim.api.nvim_create_augroup("LSP_errors", { clear = true })
+  vim.api.nvim_create_autocmd("BufWinEnter, BufEnter, BufWrite, InsertLeave", { callback = function()
+  vim.diagnostic.setloclist({open = false}) end, group = LSP_errors
+})
 
 -- Autoformat
 -- augroup _lsp
