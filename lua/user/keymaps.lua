@@ -38,7 +38,7 @@ keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 
 -- Saving & Quitting
 keymap("n", "<Leader>w", ":w<CR>", optn)
-keymap("n", "<Leader>q", ":q<CR>", optn)
+keymap("n", "<Leader>q", ":Bdelete<CR>", optn)
 
 -- Reload lua file
 keymap("n", "<Leader>5", ":luafile %<CR>", optn)
