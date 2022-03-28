@@ -1,4 +1,5 @@
 local opts = { noremap = true, silent = true }
+local optn = { noremap = true, silent = false }
 
 local term_opts = { silent = true }
 
@@ -32,12 +33,18 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-keymap("n", "<Tab>", ":BufferNext<CR>", opts)
-keymap("n", "<S-Tab>", ":BufferPrevious<CR>", opts)
-keymap("n", "<Leader>q<Tab>", ":BufferClose<CR>", opts)
+keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
+keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
+
+-- Saving & Quitting
+keymap("n", "<Leader>w", ":w<CR>", optn)
+keymap("n", "<Leader>q", ":q<CR>", optn)
+
+-- Reload lua file
+keymap("n", "<Leader>5", ":luafile %<CR>", optn)
 
 -- Undotree
-keymap("n", "<Leader>u", ":Undotreeshow<CR>", opts)
+keymap("n", "<Leader>u", ":UndotreeShow<CR>", opts)
 
 -- Language suggestions
 keymap("n", "<Leader><BS>", "z=", opts)
@@ -103,6 +110,9 @@ keymap("n", ":", ":FineCmdline<CR>", opts)
 
 --Fine Search box
 keymap("n", "/", ":SearchBoxIncSearch<CR>", opts)
+
+-- Nvimtree
+keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 
 -- Insert --
 -- Press jk to leave insert mode
