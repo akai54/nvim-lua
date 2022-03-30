@@ -2,7 +2,6 @@ local opts = { noremap = true, silent = true }
 local optn = { noremap = true, silent = false }
 
 local term_opts = { silent = true }
--- error
 
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
@@ -52,12 +51,13 @@ keymap("n", "<Leader><BS>", "z=", opts)
 
 -- QuickFix List
 keymap("n", "<C-o>", ":copen<CR>", opts)
-keymap("n", "<C-q>", ":cclose<CR>", opts) -- Works for localFix list as well
+keymap("n", "<C-q>", ":cclose<CR>", opts)
 keymap("n", "<A-j>", ":cnext<CR>", opts)
 keymap("n", "<A-k>", ":cprev<CR>", opts)
 
 -- LocalFix List
 keymap("n", "<S-l>", ":lopen<CR>", optn)
+keymap("n", "<S-q>", ":lclose<CR>", optn)
 keymap("n", "<S-j>", ":lnext<CR>", opts)
 keymap("n", "<S-k>", ":lprevious<CR>", opts)
 
@@ -114,6 +114,11 @@ keymap("n", "/", ":SearchBoxIncSearch<CR>", opts)
 
 -- Nvimtree
 keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
+
+-- Hop
+keymap("n", "<Leader>hw", ":HopWord<CR>", optn) -- Highlight words
+keymap("n", "<Leader>hl", ":HopLine<CR>", optn) -- Highlight beginning of each line
+keymap("n", "<Leader>hs", ":HopChar1<CR>", optn) -- Highlight 1 char
 
 -- Insert --
 -- Press jk to leave insert mode

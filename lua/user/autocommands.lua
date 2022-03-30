@@ -31,12 +31,32 @@ vim.cmd [[
 ]]
 
 function My_lsp_errors()
-  vim.diagnostic.setloclist({open = false})
+	vim.diagnostic.setloclist({open = false})
 end
 
 local LSP_errors = vim.api.nvim_create_augroup("LSP_errors", { clear = true })
-vim.api.nvim_create_autocmd("BufWinEnter, BufEnter, BufWrite, InsertLeave, ModeChanged",
+vim.api.nvim_create_autocmd("BufWrite,BufEnter,InsertLeave *",
 { callback = My_lsp_errors, group = LSP_errors})
+
+local keymap = vim.api.nvim_buf_set_keymap
+local Compile = vim.api.nvim_create_augroup("Compile", { clear = true })
+local optn = { noremap = true, silent = false }
+local c = vim.api.nvim_create_autocmd
+local cpp = vim.api.nvim_create_autocmd
+
+c("FileType", {
+	pattern = "c",
+	callback = function()
+		keymap(0, "n", "<F9>", ":w <bar> exec '!gcc '.shellescape('%').' -std=c11 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>", optn) end,
+	group = Compile,
+})
+
+cpp("FileType", {
+	pattern = "cpp",
+	callback = function()
+		keymap(0, "n", "<F9>", ":w <bar> exec '!g++ '.shellescape('%').' -std=c++17 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>", optn) end,
+	group = Compile,
+})
 
 -- Autoformat
 -- augroup _lsp
