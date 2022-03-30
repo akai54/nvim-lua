@@ -57,7 +57,7 @@ keymap("n", "<A-j>", ":cnext<CR>", opts)
 keymap("n", "<A-k>", ":cprev<CR>", opts)
 
 -- LocalFix List
-keymap("n", "<Leader>/", ":lopen<CR>", optn)
+keymap("n", "<S-l>", ":lopen<CR>", optn)
 keymap("n", "<S-j>", ":lnext<CR>", opts)
 keymap("n", "<S-k>", ":lprevious<CR>", opts)
 
