@@ -33,8 +33,8 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
-keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
+--keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
+--keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
 
 -- Saving & Quitting
 keymap("n", "<Leader>w", ":w<CR>", optn)
@@ -118,7 +118,9 @@ keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 -- Hop
 keymap("n", "<Leader>hw", ":HopWord<CR>", optn) -- Highlight words
 keymap("n", "<Leader>hl", ":HopLine<CR>", optn) -- Highlight beginning of each line
-keymap("n", "<Leader>hs", ":HopChar1<CR>", optn) -- Highlight 1 char
+keymap("n", "<Leader>,", ":HopChar1<CR>", optn) -- Highlight 1 char
+
+-- Harpoon
 
 -- Insert --
 -- Press jk to leave insert mode

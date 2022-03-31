@@ -1,4 +1,4 @@
-vim.cmd [[
+vim.cmd([[
   augroup _general_settings
   autocmd!
   autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
@@ -28,33 +28,55 @@ vim.cmd [[
   autocmd!
   autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
   augroup end
-]]
-
-function My_lsp_errors()
-	vim.diagnostic.setloclist({open = false})
-end
-
-local LSP_errors = vim.api.nvim_create_augroup("LSP_errors", { clear = true })
-vim.api.nvim_create_autocmd("BufWrite,BufEnter,InsertLeave *",
-{ callback = My_lsp_errors, group = LSP_errors})
+]])
 
 local keymap = vim.api.nvim_buf_set_keymap
 local Compile = vim.api.nvim_create_augroup("Compile", { clear = true })
 local optn = { noremap = true, silent = false }
 local c = vim.api.nvim_create_autocmd
 local cpp = vim.api.nvim_create_autocmd
+local lsp = vim.api.nvim_create_autocmd
+local format = vim.api.nvim_create_autocmd
+
+function My_lsp_errors()
+	vim.diagnostic.setloclist({ open = false })
+end
+
+function My_formatting()
+	vim.lsp.buf.formatting_sync()
+end
+
+local Auto_formatting = vim.api.nvim_create_augroup("Formating", { clear = true })
+format("BufWritePre", { callback = My_formatting, group = Auto_formatting })
+
+local LSP_errors = vim.api.nvim_create_augroup("LSP_errors", { clear = true })
+lsp("BufWrite,BufEnter,InsertLeave *", { callback = My_lsp_errors, group = LSP_errors })
 
 c("FileType", {
 	pattern = "c",
 	callback = function()
-		keymap(0, "n", "<F9>", ":w <bar> exec '!gcc '.shellescape('%').' -std=c11 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>", optn) end,
+		keymap(
+			0,
+			"n",
+			"<F9>",
+			":w <bar> exec '!gcc '.shellescape('%').' -std=c11 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>",
+			optn
+		)
+	end,
 	group = Compile,
 })
 
 cpp("FileType", {
 	pattern = "cpp",
 	callback = function()
-		keymap(0, "n", "<F9>", ":w <bar> exec '!g++ '.shellescape('%').' -std=c++17 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>", optn) end,
+		keymap(
+			0,
+			"n",
+			"<F9>",
+			":w <bar> exec '!g++ '.shellescape('%').' -std=c++17 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>",
+			optn
+		)
+	end,
 	group = Compile,
 })
 
