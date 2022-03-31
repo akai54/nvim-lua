@@ -52,8 +52,8 @@ keymap("n", "<Leader><BS>", "z=", opts)
 -- QuickFix List
 keymap("n", "<C-o>", ":copen<CR>", opts)
 keymap("n", "<C-q>", ":cclose<CR>", opts)
+keymap("n", "<A-h>", ":cprev<CR>", opts)
 keymap("n", "<A-j>", ":cnext<CR>", opts)
-keymap("n", "<A-k>", ":cprev<CR>", opts)
 
 -- LocalFix List
 keymap("n", "<S-l>", ":lopen<CR>", optn)
