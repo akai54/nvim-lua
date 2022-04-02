@@ -120,8 +120,6 @@ keymap("n", "<Leader>hw", ":HopWord<CR>", optn) -- Highlight words
 keymap("n", "<Leader>hl", ":HopLine<CR>", optn) -- Highlight beginning of each line
 keymap("n", "<Leader>,", ":HopChar1<CR>", optn) -- Highlight 1 char
 
--- Harpoon
-
 -- Insert --
 -- Press jk to leave insert mode
 keymap("i", "jk", "<ESC>", opts)

@@ -5,8 +5,8 @@ end
 
 local keymap = vim.api.nvim_set_keymap
 
-local h_ui = pcall(require, "harpoon.ui")
-local h_mark = pcall(require, "harpoon.mark")
+local h_ui = require("harpoon.ui")
+local h_mark = require("harpoon.mark")
 
 keymap("n", "<Leader>ha", "", { -- Mark file
 	callback = function()
