@@ -3,10 +3,10 @@ local M = {}
 -- TODO: backfill this to template
 M.setup = function()
   local signs = {
-  { name = "DiagnosticSignError", text = "" },
-  { name = "DiagnosticSignWarn", text = "" },
-  { name = "DiagnosticSignHint", text = "" },
-  { name = "DiagnosticSignInfo", text = "" },
+    { name = "DiagnosticSignError", text = "" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = "" },
   }
 
   for _, sign in ipairs(signs) do
@@ -32,6 +32,9 @@ M.setup = function()
       prefix = "",
     },
   }
+  if vim.diagnostic.open_float(nil, config) then
+    vim.lsp.buf.code_action(nil)
+  end
 
   vim.diagnostic.config(config)
 
@@ -69,12 +72,19 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>ln", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lc", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lo", '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<Leader>lo", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+  vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
 end
 
 M.on_attach = function(client, bufnr)
+  -- Disabling formating from the tsserver and the gopls.
   if client.name == "tsserver" then
+    client.resolved_capabilities.document_formatting = false
+  end
+  if client.name == "gopls" then
+    client.resolved_capabilities.document_formatting = false
+  end
+  if client.name == "sumneko_lua" then
     client.resolved_capabilities.document_formatting = false
   end
   lsp_keymaps(bufnr)

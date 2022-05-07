@@ -35,15 +35,22 @@ local Compile = vim.api.nvim_create_augroup("Compile", { clear = true })
 local optn = { noremap = true, silent = false }
 local c = vim.api.nvim_create_autocmd
 local cpp = vim.api.nvim_create_autocmd
+local go = vim.api.nvim_create_autocmd
+local js = vim.api.nvim_create_autocmd
 local lsp = vim.api.nvim_create_autocmd
 local format = vim.api.nvim_create_autocmd
+local code = vim.api.nvim_create_autocmd
 
 function My_lsp_errors()
-	vim.diagnostic.setloclist({ open = false })
+  vim.diagnostic.setloclist({ open = false })
 end
 
 function My_formatting()
-	vim.lsp.buf.formatting_sync()
+  vim.lsp.buf.format()
+end
+
+function My_code_actions()
+  vim.lsp.buf.code_action(nil)
 end
 
 local Auto_formatting = vim.api.nvim_create_augroup("Formating", { clear = true })
@@ -52,36 +59,54 @@ format("BufWritePre", { callback = My_formatting, group = Auto_formatting })
 local LSP_errors = vim.api.nvim_create_augroup("LSP_errors", { clear = true })
 lsp("BufWrite,BufEnter,InsertLeave *", { callback = My_lsp_errors, group = LSP_errors })
 
+code("FileType", {
+  pattern = "cpp",
+  callback = function()
+    keymap(0, "n", "<F12>", ":w <bar> exec '!make ' && ./.shellescape('%:r')<CR>", optn)
+  end,
+  group = Compile,
+})
+
 c("FileType", {
-	pattern = "c",
-	callback = function()
-		keymap(
-			0,
-			"n",
-			"<F9>",
-			":w <bar> exec '!gcc '.shellescape('%').' -std=c11 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>",
-			optn
-		)
-	end,
-	group = Compile,
+  pattern = "c",
+  callback = function()
+    keymap(
+      0,
+      "n",
+      "<F9>",
+      ":w <bar> exec '!gcc '.shellescape('%').' -std=c11 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>",
+      optn
+    )
+  end,
+  group = Compile,
 })
 
 cpp("FileType", {
-	pattern = "cpp",
-	callback = function()
-		keymap(
-			0,
-			"n",
-			"<F9>",
-			":w <bar> exec '!g++ '.shellescape('%').' -std=c++17 -Wall -Wextra -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>",
-			optn
-		)
-	end,
-	group = Compile,
+  pattern = "cpp",
+  callback = function()
+    keymap(
+      0,
+      "n",
+      "<F9>",
+      ":w <bar> exec '!g++ '.shellescape('%').' -std=c++17 -Wall -Wextra -Werror -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>",
+      optn
+    )
+  end,
+  group = Compile,
 })
 
--- Autoformat
--- augroup _lsp
---   autocmd!
---   autocmd BufWritePre * lua vim.lsp.buf.formatting()
--- augroup end
+go("FileType", {
+  pattern = "go",
+  callback = function()
+    keymap(0, "n", "<F9>", ":w <bar> exec '!go run ' shellescape('%')<CR>", optn)
+  end,
+  group = Compile,
+})
+
+js("FileType", {
+  pattern = "js",
+  callback = function()
+    keymap(0, "n", "<F9>", ":w <bar> exec '!node ' shellescape('%')<CR>", optn)
+  end,
+  group = Compile,
+})

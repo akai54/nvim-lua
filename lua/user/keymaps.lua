@@ -70,6 +70,7 @@ keymap("n", "<Leader>tw", ":Telescope grep_string<CR>", opts)
 keymap("n", "<Leader>tf", ":Telescope find_files<CR>", opts)
 keymap("n", "<Leader>tc", ":Telescope git_commits previewer=false<CR><CR>", opts)
 keymap("n", "<Leader>tb", ":Telescope git_branches previewer=false<CR>", opts)
+keymap("n", "<Leader>tr", ":Telescope oldfiles<CR>", opts)
 
 -- Fugitive
 keymap("n", "<Leader>gs", ":G<CR>", opts)
@@ -119,6 +120,9 @@ keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<Leader>hw", ":HopWord<CR>", optn) -- Highlight words
 keymap("n", "<Leader>hl", ":HopLine<CR>", optn) -- Highlight beginning of each line
 keymap("n", "<Leader>,", ":HopChar1<CR>", optn) -- Highlight 1 char
+
+-- Compile with make
+keymap("n", "<F12>", ":!make<CR>", opts)
 
 -- Insert --
 -- Press jk to leave insert mode

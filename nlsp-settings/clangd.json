@@ -1,0 +1,4 @@
+Diagnostics:
+  ClangTidy:
+    CheckOptions:
+      llvm-include-order: false
