@@ -49,10 +49,6 @@ function My_formatting()
   vim.lsp.buf.format()
 end
 
-function My_code_actions()
-  vim.lsp.buf.code_action(nil)
-end
-
 local Auto_formatting = vim.api.nvim_create_augroup("Formating", { clear = true })
 format("BufWritePre", { callback = My_formatting, group = Auto_formatting })
 
@@ -62,7 +58,7 @@ lsp("BufWrite,BufEnter,InsertLeave *", { callback = My_lsp_errors, group = LSP_e
 code("FileType", {
   pattern = "cpp",
   callback = function()
-    keymap(0, "n", "<F12>", ":w <bar> exec '!make ' && ./.shellescape('%:r')<CR>", optn)
+    keymap(0, "n", "<F12>", ":w <bar> exec '!make' && ./'.shellescape('%:r')'<CR>", optn)
   end,
   group = Compile,
 })
