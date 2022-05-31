@@ -32,10 +32,6 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts)
 keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
--- Navigate buffers
---keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts)
---keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts)
-
 -- Saving & Quitting
 keymap("n", "<Leader>w", ":w<CR>", optn)
 keymap("n", "<Leader>q", ":Bdelete<CR>", optn)
@@ -109,6 +105,7 @@ keymap("n", "<Leader>g;", ":diffget //3<CR>", opts)
 
 -- Fine Command-Line
 keymap("n", ":", ":FineCmdline<CR>", opts)
+keymap("v", ":", ":FineCmdline<CR>", opts)
 
 --Fine Search box
 keymap("n", "/", ":SearchBoxIncSearch<CR>", opts)
@@ -139,6 +136,6 @@ keymap("v", "jk", "<ESC>", opts)
 keymap("v", "kj", "<ESC>", opts)
 
 -- Move text up and down
-keymap("v", "<S-j>", ":m .+1<CR>==", opts)
-keymap("v", "<S-k>", ":m .-2<CR>==", opts)
+keymap("v", "<S-j>", ":m '>+1<CR>gv=gv", opts)
+keymap("v", "<S-k>", ":m '<-2<CR>gv=gv", opts)
 keymap("v", "p", '"_dP', opts)

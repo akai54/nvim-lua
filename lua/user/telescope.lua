@@ -97,12 +97,22 @@ telescope.setup({
   },
 })
 
-keymap("n", "<Leader>tv", "", {callback =
-function()
-  builtin.find_files({
-    prompt_title = "< Nvim >",
-    cwd = "$HOME/.config/nvim",
-    file_ignore_patterns = {".git/*", ".github/*", ".gitignore", "LICENSE", "undodir/.*"},
-  })
+keymap("n", "<Leader>tv", "", {
+  callback = function()
+    builtin.find_files({
+      prompt_title = "< Nvim >",
+      cwd = "$HOME/.config/nvim",
+      file_ignore_patterns = { ".git/*", ".github/*", ".gitignore", "LICENSE", "undodir/.*" },
+    })
+  end,
+})
+
+keymap("n", "<Leader>th", "", {
+  callback = function()
+    builtin.find_files({
+      prompt_title = "< Nvim >",
+      cwd = "$HOME",
+      file_ignore_patterns = { ".git/*", ".github/*", ".gitignore", "LICENSE", "undodir/.*" },
+    })
   end,
 })
