@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/.local/share/nvim/site/pack/packer/start/2077.nvim
+cd ~/Desktop/2077.nvim
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -13,13 +13,15 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +4 ~/Bureau/lua/2077.nvim/lua/2077/Dashboard.lua
-badd +1 ~/Bureau/lua/2077.nvim/lua/2077/palette.lua
-badd +1 lua/2077/Dashboard.lua
+badd +35 lua/2077/Treesitter.lua
+badd +1 lua/2077/palette.lua
+badd +1 ~/.config/nvim/lua/user/plugins.lua
+badd +1 lua/user/plugins.lua
+badd +0 ~/Desktop/opengl/Hello_Rectangle/main.cpp
 argglobal
 %argdel
-$argadd ~/Bureau/lua/2077.nvim/lua/2077/Dashboard.lua
-edit ~/Bureau/lua/2077.nvim/lua/2077/Dashboard.lua
+$argadd lua/2077/Treesitter.lua
+edit lua/2077/Treesitter.lua
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -31,6 +33,10 @@ split
 1wincmd k
 wincmd w
 wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
 wincmd t
@@ -40,11 +46,14 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 19 + 22) / 44)
-exe 'vert 1resize ' . ((&columns * 87 + 87) / 174)
-exe '2resize ' . ((&lines * 20 + 22) / 44)
-exe 'vert 2resize ' . ((&columns * 87 + 87) / 174)
-exe 'vert 3resize ' . ((&columns * 86 + 87) / 174)
+exe '1resize ' . ((&lines * 14 + 16) / 33)
+exe 'vert 1resize ' . ((&columns * 66 + 67) / 134)
+exe '2resize ' . ((&lines * 15 + 16) / 33)
+exe 'vert 2resize ' . ((&columns * 66 + 67) / 134)
+exe '3resize ' . ((&lines * 15 + 16) / 33)
+exe 'vert 3resize ' . ((&columns * 67 + 67) / 134)
+exe '4resize ' . ((&lines * 14 + 16) / 33)
+exe 'vert 4resize ' . ((&columns * 67 + 67) / 134)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -56,7 +65,30 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 9) / 19)
+let s:l = 35 - ((6 * winheight(0) + 7) / 14)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 35
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/Desktop/opengl/Hello_Rectangle/main.cpp", ":p")) | buffer ~/Desktop/opengl/Hello_Rectangle/main.cpp | else | edit ~/Desktop/opengl/Hello_Rectangle/main.cpp | endif
+if &buftype ==# 'terminal'
+  silent file ~/Desktop/opengl/Hello_Rectangle/main.cpp
+endif
+balt lua/2077/Treesitter.lua
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 7) / 15)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -64,11 +96,11 @@ keepjumps 1
 normal! 0
 wincmd w
 argglobal
-if bufexists(fnamemodify("lua/2077/Dashboard.lua", ":p")) | buffer lua/2077/Dashboard.lua | else | edit lua/2077/Dashboard.lua | endif
+if bufexists(fnamemodify("lua/2077/palette.lua", ":p")) | buffer lua/2077/palette.lua | else | edit lua/2077/palette.lua | endif
 if &buftype ==# 'terminal'
-  silent file lua/2077/Dashboard.lua
+  silent file lua/2077/palette.lua
 endif
-balt ~/Bureau/lua/2077.nvim/lua/2077/Dashboard.lua
+balt lua/2077/Treesitter.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -79,7 +111,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 10) / 20)
+let s:l = 1 - ((0 * winheight(0) + 7) / 15)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -87,11 +119,11 @@ keepjumps 1
 normal! 0
 wincmd w
 argglobal
-if bufexists(fnamemodify("~/Bureau/lua/2077.nvim/lua/2077/palette.lua", ":p")) | buffer ~/Bureau/lua/2077.nvim/lua/2077/palette.lua | else | edit ~/Bureau/lua/2077.nvim/lua/2077/palette.lua | endif
+if bufexists(fnamemodify("~/.config/nvim/lua/user/plugins.lua", ":p")) | buffer ~/.config/nvim/lua/user/plugins.lua | else | edit ~/.config/nvim/lua/user/plugins.lua | endif
 if &buftype ==# 'terminal'
-  silent file ~/Bureau/lua/2077.nvim/lua/2077/palette.lua
+  silent file ~/.config/nvim/lua/user/plugins.lua
 endif
-balt ~/Bureau/lua/2077.nvim/lua/2077/Dashboard.lua
+balt lua/user/plugins.lua
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -102,19 +134,21 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 51 - ((31 * winheight(0) + 20) / 40)
+let s:l = 1 - ((0 * winheight(0) + 7) / 14)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 51
-normal! 03|
+keepjumps 1
+normal! 0
 wincmd w
-2wincmd w
-exe '1resize ' . ((&lines * 19 + 22) / 44)
-exe 'vert 1resize ' . ((&columns * 87 + 87) / 174)
-exe '2resize ' . ((&lines * 20 + 22) / 44)
-exe 'vert 2resize ' . ((&columns * 87 + 87) / 174)
-exe 'vert 3resize ' . ((&columns * 86 + 87) / 174)
+exe '1resize ' . ((&lines * 14 + 16) / 33)
+exe 'vert 1resize ' . ((&columns * 66 + 67) / 134)
+exe '2resize ' . ((&lines * 15 + 16) / 33)
+exe 'vert 2resize ' . ((&columns * 66 + 67) / 134)
+exe '3resize ' . ((&lines * 15 + 16) / 33)
+exe 'vert 3resize ' . ((&columns * 67 + 67) / 134)
+exe '4resize ' . ((&lines * 14 + 16) / 33)
+exe 'vert 4resize ' . ((&columns * 67 + 67) / 134)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
@@ -129,6 +163,7 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

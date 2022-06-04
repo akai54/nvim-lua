@@ -134,6 +134,9 @@ return packer.startup(function(use)
 	-- Color Highlighter
 	use("norcalli/nvim-colorizer.lua")
 
+	-- Debugging
+	use("mfussenegger/nvim-dap")
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
