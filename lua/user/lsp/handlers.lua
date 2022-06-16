@@ -78,9 +78,6 @@ end
 
 M.on_attach = function(client, bufnr)
   -- Disabling formating from the tsserver and the gopls.
-  if client.name == "tsserver" then
-    client.server_capabilities.document_formatting = false
-  end
   if client.name == "gopls" then
     client.server_capabilities.document_formatting = false
   end

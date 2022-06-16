@@ -2,7 +2,7 @@ local status_ok, _ = pcall(require, "lspconfig")
 if not status_ok then
   return
 end
-
-require "user.lsp.lsp-installer"
+vim.lsp.set_log_level("debug")
+require("user.lsp.lsp-installer")
 require("user.lsp.handlers").setup()
-require "user.lsp.null-ls"
+require("user.lsp.null-ls")
