@@ -14,6 +14,16 @@ telescope.setup({
     selection_caret = " ",
     path_display = { "smart" },
 
+    file_ignore_patterns = {
+      ".git/*",
+      ".github/*",
+      ".gitignore",
+      "LICENSE",
+      "node_modules",
+      "package-lock.json",
+      "package.json",
+    },
+
     mappings = {
       i = {
         ["<C-n>"] = actions.cycle_history_next,
@@ -79,15 +89,7 @@ telescope.setup({
       },
     },
   },
-  pickers = {
-    -- Default configuration for builtin pickers goes here:
-    -- picker_name = {
-    --   picker_config_key = value,
-    --   ...
-    -- }
-    -- Now the picker_config_key will be applied every time you call this
-    -- builtin picker
-  },
+  pickers = {},
   extensions = {
     -- Your extension configuration goes here:
     -- extension_name = {
@@ -102,7 +104,7 @@ keymap("n", "<Leader>tv", "", {
     builtin.find_files({
       prompt_title = "< Nvim >",
       cwd = "$HOME/.config/nvim",
-      file_ignore_patterns = { ".git/*", ".github/*", ".gitignore", "LICENSE", "undodir/.*" },
+      file_ignore_patterns = { ".git/*", ".github/*", ".gitignore", "LICENSE", "node_modules/.*" },
     })
   end,
 })

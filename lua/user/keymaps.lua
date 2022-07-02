@@ -33,7 +33,7 @@ keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
 keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 
 -- Saving & Quitting
-keymap("n", "<Leader>w", ":w<CR>", optn)
+keymap("n", "<Leader>w", ":w<CR>", opts)
 keymap("n", "<Leader>q", ":Bdelete<CR>", optn)
 
 -- Reload lua file
@@ -67,6 +67,8 @@ keymap("n", "<Leader>tf", ":Telescope find_files<CR>", opts)
 keymap("n", "<Leader>tc", ":Telescope git_commits previewer=false<CR><CR>", opts)
 keymap("n", "<Leader>tb", ":Telescope git_branches previewer=false<CR>", opts)
 keymap("n", "<Leader>tr", ":Telescope oldfiles<CR>", opts)
+keymap("n", "<Leader>tp", ":Telescope projects<CR>", opts)
+keymap("n", "<Leader>tt", ":Telescope buffers<CR>", opts)
 
 -- Fugitive
 keymap("n", "<Leader>gs", ":G<CR>", opts)
@@ -82,7 +84,7 @@ Rename your file on disk.
 Rename the file in git repo.
 Reload the file into the current buffer.
 Preserve undo history." ]]
-keymap("n", "<Leader>gn", ":Gmove<CR>", opts)
+keymap("n", "<Leader>gn", ":GMove", opts)
 
 --[[ If you want add a file to the .gitignore from the gitstatus window, just
 press any number followd by g and I then save&quit the .gitignore. ]]
@@ -105,7 +107,7 @@ keymap("n", "<Leader>g;", ":diffget //3<CR>", opts)
 
 -- Fine Command-Line
 keymap("n", ":", ":FineCmdline<CR>", opts)
-keymap("v", ":", ":FineCmdline<CR>", opts)
+keymap("v", ":", ":<C-u>FineCmdline '<,'><CR>", opts)
 
 --Fine Search box
 keymap("n", "/", ":SearchBoxIncSearch<CR>", opts)
@@ -116,10 +118,24 @@ keymap("n", "<Leader>e", ":NvimTreeToggle<CR>", opts)
 -- Hop
 keymap("n", "<Leader>hw", ":HopWord<CR>", optn) -- Highlight words
 keymap("n", "<Leader>hl", ":HopLine<CR>", optn) -- Highlight beginning of each line
-keymap("n", "<Leader>,", ":HopChar1<CR>", optn) -- Highlight 1 char
-
--- Compile with make
-keymap("n", "<F12>", ":!make<CR>", opts)
+keymap("n", ",", ":HopChar1<CR>", optn) -- Highlight 1 char
+keymap(
+  "o",
+  "f",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+  ,
+  {}
+)
+keymap(
+  "o",
+  "F",
+  "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, inclusive_jump = true })<cr>"
+  ,
+  {}
+)
+-- New Lines + leave insert mode
+keymap("n", "<Leader>o", "o<ESC>k", opts)
+keymap("n", "<M-o>", "O<ESC>j", opts)
 
 -- Insert --
 -- Press jk to leave insert mode

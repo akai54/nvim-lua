@@ -1,7 +1,7 @@
 local options = {
   backup = false, -- creates a backup file
-  clipboard = "unnamedplus", -- allows neovim to access the system clipboard
   cmdheight = 2, -- more space in the neovim command line for displaying messages
+  clipboard = "unnamedplus",
   completeopt = { "menu" }, -- mostly just for cmp
   conceallevel = 0, -- so that `` is visible in markdown files
   fileencoding = "utf-8", -- the encoding written to a file
@@ -42,6 +42,20 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
+vim.g.clipboard = {
+  name = "win32yank-wsl",
+  copy = {
+    ["+"] = "win32yank.exe -i --crlf",
+    ["*"] = "win32yank.exe -i --crlf",
+  },
+  paste = {
+    ["+"] = "win32yank.exe -o --lf",
+    ["*"] = "win32yank.exe -o --lf",
+  },
+  cache_enabled = false,
+}
+
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+vim.opt.wildignore = "**/node_modules/**"
