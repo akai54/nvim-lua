@@ -30,9 +30,10 @@ local options = {
   numberwidth = 4, -- set number column width to 2 {default 4}
   signcolumn = "yes", -- always show the sign column, otherwise it would shift the text each time
   wrap = false, -- display lines as one long line
-  scrolloff = 8, -- is one of my fav
+  scrolloff = 999, -- is one of my fav
   sidescrolloff = 8,
   laststatus = 3, -- Only one statusline for everything.
+  so = 999,
   guifont = "monospace:h17", -- the font used in graphical neovim applications
 }
 
@@ -42,7 +43,7 @@ for k, v in pairs(options) do
   vim.opt[k] = v
 end
 
-vim.g.clipboard = {
+--[[ vim.g.clipboard = {
   name = "win32yank-wsl",
   copy = {
     ["+"] = "win32yank.exe -i --crlf",
@@ -53,7 +54,7 @@ vim.g.clipboard = {
     ["*"] = "win32yank.exe -o --lf",
   },
   cache_enabled = false,
-}
+} ]]
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
